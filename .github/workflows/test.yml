@@ -3,7 +3,7 @@ name: Test
 on:
   workflow_dispatch:
     inputs:
-      on:
+      runner:
         required: true
       multiple:
         type: boolean
@@ -14,7 +14,7 @@ jobs:
     strategy:
       matrix:
         n: ${{ github.event.inputs.multiple && fromJSON('[0]') || fromJSON('[0, 1, 2]') }}
-    runs-on: ${{ github.event.inputs.on }}
+    runs-on: ${{ github.event.inputs.runner }}
     steps:
       - name: Run a one-line script
         run: echo "Hello, World! - ${{ matrix.n }}"
