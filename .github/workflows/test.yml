@@ -1,0 +1,20 @@
+name: Test
+
+on:
+  workflow_dispatch:
+    inputs:
+      on:
+        required: true
+      multiple:
+        type: boolean
+        default: false
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        n: ${{ github.event.inputs.multiple && fromJSON('[0]') || fromJSON('[0, 1, 2]') }}
+    runs-on: ${{ github.event.inputs.on }}
+    steps:
+      - name: Run a one-line script
+        run: echo "${{ matrix.n }}: Hello, World!"
