@@ -17,4 +17,4 @@ jobs:
     runs-on: ${{ github.event.inputs.on }}
     steps:
       - name: Run a one-line script
-        run: echo "${{ matrix.n }}: Hello, World!"
+        run: echo "Hello, World! - ${{ matrix.n }}"
