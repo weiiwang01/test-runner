@@ -8,6 +8,9 @@ on:
       multiple:
         type: boolean
         default: false
+      sleep:
+        type: number
+        default: 1
 
 jobs:
   test:
@@ -16,5 +19,7 @@ jobs:
         n: ${{ github.event.inputs.multiple == 'false' && fromJSON('[0]') || fromJSON('[0, 1, 2]') }}
     runs-on: ${{ github.event.inputs.runner }}
     steps:
+      - name: Sleep
+        run: sleep ${{ github.event.inputs.sleep }}
       - name: Run a one-line script
         run: echo "Hello, World! - ${{ matrix.n }}"
