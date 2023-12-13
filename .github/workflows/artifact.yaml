@@ -1,0 +1,38 @@
+name: Test
+
+on:
+  workflow_dispatch:
+    inputs:
+      runner:
+        required: true
+      multiple:
+        type: boolean
+        default: false
+      sleep:
+        type: number
+        default: 1
+
+jobs:
+  upload:
+    strategy:
+      matrix:
+        dir: [foo, bar]
+    runs-on: ubuntu-latest
+    steps:
+      - name: create files
+        run: |
+          mkdir ${{ matrix.dir }}
+          echo ${{ matrix.dir }} > ${{ matrix.dir }}/${{ matrix.dir }}.txt
+      - uses: actions/upload-artifact@v3
+        with:
+          name: test-artifact
+          path: ${{ matrix.dir }}/${{ matrix.dir }}.txt
+  download:
+    needs: [upload]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: test-artifact
+      - name: list files
+        run: find .
