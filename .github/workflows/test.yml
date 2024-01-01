@@ -28,3 +28,6 @@ jobs:
         run: sleep ${{ github.event.inputs.sleep }}
       - name: Run a one-line script
         run: echo "Hello, World! - ${{ matrix.n }}"
+      - name: Test Command
+        run: jq --help
+
