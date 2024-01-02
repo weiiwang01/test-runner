@@ -29,5 +29,5 @@ jobs:
       - name: Run a one-line script
         run: echo "Hello, World! - ${{ matrix.n }}"
       - name: Test Command
-        run: jq --help || :
+        run: "jq --help || :"
 
